@@ -42,6 +42,12 @@ The platform ensures high code quality and follows best practices.
 
 ## Special Features
 
+- **Server Actions:** The application uses Server Actions to efficiently and securely handle server actions.
+
+## Improvements
+
+- **zod** for form validations
+
 ## Contributions
 
 Contributions are welcome. If you would like to contribute, please follow these steps:

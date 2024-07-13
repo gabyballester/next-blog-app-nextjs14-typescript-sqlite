@@ -1,4 +1,4 @@
-import { NewPost, Post } from "@/types";
+import { Post } from "@/types";
 import sql from "better-sqlite3";
 
 const db = new sql("posts.db");
@@ -49,10 +49,10 @@ function initDb(): void {
 initDb();
 
 export async function getPosts(maxNumber?: number): Promise<Post[]> {
-  let limitClause = '';
+  let limitClause = "";
 
   if (maxNumber) {
-    limitClause = 'LIMIT ?';
+    limitClause = "LIMIT ?";
   }
 
   const stmt = db.prepare(`
@@ -68,11 +68,11 @@ export async function getPosts(maxNumber?: number): Promise<Post[]> {
   return maxNumber ? (stmt.all(maxNumber) as Post[]) : (stmt.all() as Post[]);
 }
 
-export async function storePost(post: NewPost): Promise<sql.RunResult> {
+export async function storePost(post: Post): Promise<sql.RunResult> {
   const stmt = db.prepare(`
     INSERT INTO posts (image_url, title, content, user_id)
     VALUES (?, ?, ?, ?)`);
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   return stmt.run(post.imageUrl, post.title, post.content, post.userId);
 }
 

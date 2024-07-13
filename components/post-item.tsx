@@ -1,8 +1,8 @@
 import { formatDate } from "@/lib";
 import { LikeButton } from "./like-icon";
-import { Post } from "@/types";
+import { PostExtended } from "@/types";
 
-export const PostItem = ({ post }: { post: Post }) => {
+export const PostItem = ({ post }: { post: PostExtended }) => {
   return (
     <article className="post">
       <div className="post-image">

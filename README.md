@@ -35,6 +35,14 @@ The platform ensures high code quality and follows best practices.
 - **Next.js:** As the chosen framework to build with.
 - **React:** As the UI library in the background.
 - **TypeScript:** Adding strong static types and advanced features to improve large-scale development and code maintainability.
+- **Cloudinary:** to store image files.
+  You´ll find a .env.local-sample file where you have to store tha info from your Cloudinary dashboard
+
+```bash
+  CLOUDINARY_CLOUD_NAME=
+  CLOUDINARY_API_KEY=
+  CLOUDINARY_API_SECRET=
+```
 
 ## UX/UI
 

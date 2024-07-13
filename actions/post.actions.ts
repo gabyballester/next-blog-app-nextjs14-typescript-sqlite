@@ -3,18 +3,18 @@
 import { redirect } from "next/navigation";
 import { storePost } from "@/database";
 import { CreateFormStateType, FormDataPost, Post } from "@/types";
+import { uploadImage } from "@/lib";
 
-export async function createPostAction(
+export const createPostAction = async (
   _prevState: CreateFormStateType,
   formData: FormData
-) {
+): Promise<CreateFormStateType> => {
   "use server";
 
   // form fields validation
   const title = formData.get("title") as string;
   const image = formData.get("image") as File;
   const content = formData.get("content") as string;
-  const userId = formData.get("userId") as string;
 
   let errors: string[] = [];
 
@@ -30,28 +30,39 @@ export async function createPostAction(
     errors.push("Content is mandatory.");
   }
 
-  if (errors.length > 0) {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    return {
-      errors,
-    };
-  } else {
-    const formDataPost: FormDataPost = {
-      title,
-      image,
-      content,
-      userId,
-    };
+  if (errors.length > 0) return { errors };
 
-    const newPost: Post = {
-      imageUrl: "",
-      title: formDataPost.title,
-      content: formDataPost.content,
-      userId: Number(formDataPost.userId),
-    };
+  const formDataPost: FormDataPost = {
+    title,
+    image,
+    content,
+    userId: 1,
+  };
 
-    await storePost(newPost);
+  let imageUrl;
 
-    redirect("/feed");
+  imageUrl = await uploadImage(image);
+
+  if (!imageUrl) {
+    errors.push("Upload image failed!");
   }
-}
+
+  if (errors.length > 0) return { errors };
+
+  const newPost: Post = {
+    imageUrl,
+    title: formDataPost.title,
+    content: formDataPost.content,
+    userId: Number(formDataPost.userId),
+  };
+
+  const result = await storePost(newPost);
+
+  if (!result || result.changes < 1 || result.lastInsertRowid < 1) {
+    errors.push("Create post failed!");
+  }
+
+  if (errors.length > 0) return { errors };
+
+  redirect("/feed");
+};

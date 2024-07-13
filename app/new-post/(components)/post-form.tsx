@@ -39,8 +39,8 @@ export const PostForm = ({ createPostAction }: Props) => {
         </div>
         {state.errors && (
           <ul className="form-errors">
-            {state.errors.map((error) => (
-              <li>{error}</li>
+            {state.errors.map((error, index) => (
+              <li key={index}>{error}</li>
             ))}
           </ul>
         )}

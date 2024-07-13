@@ -9,7 +9,7 @@ export interface FormDataPost {
   title: string;
   image: File | null;
   content: string;
-  userId: string;
+  userId: number;
 }
 
 export type CreateFormStateType = { errors: string[] };

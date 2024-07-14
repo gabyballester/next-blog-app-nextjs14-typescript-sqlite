@@ -39,6 +39,7 @@ The platform ensures high code quality and follows best practices.
 - **TypeScript:** Adding strong static types and advanced features to improve large-scale development and code maintainability.
 - **Cloudinary:** to store image files.
   You´ll find a .env.local-sample file where you have to store tha info from your Cloudinary dashboard
+- **Sharp:**For production image optimization with Next.js, you need to install the sharp package.
 
 ```bash
   CLOUDINARY_CLOUD_NAME=
@@ -55,6 +56,20 @@ The platform ensures high code quality and follows best practices.
 - **Server Actions:** The application uses Server Actions to efficiently and securely handle server actions.
 - **Optimistic updates:** is a special feature from the React library and it allows applications to display changes in the user interface immediately, even before they are confirmed by the server. This enhances the user experience by making the application appear faster and more responsive.
 - **Revalidate front client routes:** This feature ensures that the data for client-side routes is refreshed and up-to-date by revalidating it at specified intervals or upon certain triggers. This helps maintain the accuracy and relevance of the displayed information without requiring a full page reload.
+
+## Prepare for production
+
+1. Install image optimization package sharp.
+
+```bash
+npm i sharp
+```
+
+2. Creating an optimized production build
+
+```bash
+npm run build
+```
 
 ## Improvements
 

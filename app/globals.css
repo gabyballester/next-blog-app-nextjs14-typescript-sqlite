@@ -31,6 +31,12 @@ main {
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
+.logo-img {
+  width: 4rem;
+  height: 4rem;
+  position: relative;
+}
+
 #main-header {
   width: 80%;
   max-width: 60rem;
@@ -158,11 +164,17 @@ main {
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
-.post img {
+.post-image {
   width: 8rem;
   height: 6rem;
-  object-fit: cover;
+  position: relative;
 }
+
+/* .post img {
+  width: 8rem;
+  height: 6rem;
+  object-fit: contain;
+} */
 
 .post-content {
   flex: 1;

@@ -18,6 +18,7 @@ export type ApiPostResponse = {
   userId: number;
   userFirstName: string;
   isLiked: boolean;
+  likes: number;
   createdAt: string;
 };
 

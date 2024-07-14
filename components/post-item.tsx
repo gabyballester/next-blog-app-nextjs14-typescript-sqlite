@@ -3,6 +3,7 @@
 import { formatDate } from "@/lib";
 import { LikeButton } from "./like-icon";
 import { Post } from "@/types";
+import Image from "next/image";
 
 interface Props {
   post: Post;
@@ -13,7 +14,7 @@ export const PostItem = ({ post, action }: Props) => {
   return (
     <article className="post">
       <div className="post-image">
-        <img src={post.imageUrl} alt={post.title} />
+        <Image src={post.imageUrl} alt={post.title} fill />
       </div>
       <div className="post-content">
         <header>

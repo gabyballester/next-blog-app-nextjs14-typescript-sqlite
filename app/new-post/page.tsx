@@ -1,6 +1,10 @@
 import { PostForm } from "./(components)/post-form";
-import { createPostAction } from "@/actions/post.actions";
 
 export default function NewPostPage() {
-  return <PostForm createPostAction={createPostAction} />;
+  return (
+    <>
+      <h1>Create a new post</h1>
+      <PostForm />
+    </>
+  );
 }

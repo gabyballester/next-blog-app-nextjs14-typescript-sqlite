@@ -1,10 +1,10 @@
+import sql from "better-sqlite3";
 import { mapperApiPostResponseToPost } from "@/mappers";
 import { ApiPostResponse, FormDataPost, Post } from "@/types";
-import sql from "better-sqlite3";
 
 const db = new sql("posts.db");
 
-function initDb(): void {
+const initDb = (): void => {
   db.exec(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY, 
@@ -45,11 +45,11 @@ function initDb(): void {
     VALUES ('Max', 'Schwarz', 'max@example.com')
   `);
   }
-}
+};
 
 initDb();
 
-export async function getPosts(maxNumber?: number): Promise<Post[]> {
+export const getPosts = async (maxNumber?: number): Promise<Post[]> => {
   let limitClause = "";
 
   if (maxNumber) {
@@ -71,9 +71,9 @@ export async function getPosts(maxNumber?: number): Promise<Post[]> {
     : (stmt.all() as ApiPostResponse[]);
 
   return apiPostResponses.map(mapperApiPostResponseToPost);
-}
+};
 
-export async function storePost(post: FormDataPost): Promise<sql.RunResult> {
+export const storePost = async (post: FormDataPost): Promise<sql.RunResult> => {
   try {
     const stmt = db.prepare(`
     INSERT INTO posts (image_url, title, content, user_id)
@@ -86,27 +86,32 @@ export async function storePost(post: FormDataPost): Promise<sql.RunResult> {
     console.error("Error storing post:", error);
     throw error;
   }
-}
+};
 
-export async function updatePostLikeStatus(postId: string, userId: string) {
-  const stmt = db.prepare(`
-    SELECT COUNT(*) AS count
-    FROM likes
-    WHERE user_id = ? AND post_id = ?`);
-
-  const isLiked = (stmt.get(userId, postId) as { count: number }).count === 0;
-
-  if (isLiked) {
+export async function updatePostLikeStatus(postId: string, userId: number) {
+  try {
     const stmt = db.prepare(`
-      INSERT INTO likes (user_id, post_id)
-      VALUES (?, ?)`);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    return stmt.run(userId, postId);
-  } else {
-    const stmt = db.prepare(`
-      DELETE FROM likes
+      SELECT COUNT(*) AS count
+      FROM likes
       WHERE user_id = ? AND post_id = ?`);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    return stmt.run(userId, postId);
+
+    const isLiked = (stmt.get(userId, postId) as { count: number }).count === 0;
+
+    if (isLiked) {
+      const stmt = db.prepare(`
+        INSERT INTO likes (user_id, post_id)
+        VALUES (?, ?)`);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      return stmt.run(userId, postId);
+    } else {
+      const stmt = db.prepare(`
+        DELETE FROM likes
+        WHERE user_id = ? AND post_id = ?`);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      return stmt.run(userId, postId);
+    }
+  } catch (error) {
+    console.error("Error updating post like status:", error);
+    throw error; // Re-throw the error after logging it
   }
 }

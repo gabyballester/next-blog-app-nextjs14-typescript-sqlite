@@ -24,13 +24,13 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export async function uploadImage({
+export const uploadImage = async ({
   image,
   folderName,
 }: {
   image: File;
   folderName: string;
-}) {
+}) => {
   try {
     const imageData = await image.arrayBuffer();
     const mime = image.type;
@@ -45,4 +45,4 @@ export async function uploadImage({
     console.error("Error uploading image:", error);
     throw error; // Re-lanzar el error para que pueda ser manejado por el llamador de la función
   }
-}
+};

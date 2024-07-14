@@ -1,8 +1,9 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { storePost, uploadImage } from "@/services";
+import { storePost, updatePostLikeStatus, uploadImage } from "@/services";
 import { CreateFormStateType, FormDataPost } from "@/types";
+import { revalidatePath } from "next/cache";
 
 export const createPostAction = async (
   _prevState: CreateFormStateType,
@@ -70,4 +71,15 @@ export const createPostAction = async (
   if (errors.length > 0) return { errors };
 
   redirect("/feed");
+};
+
+export const togglePostLikeStatus = async (postId: string) => {
+  try {
+    await updatePostLikeStatus(postId, 2);
+    revalidatePath("/", "layout");
+    return { message: "Success" }; // Devolvemos un objeto con un mensaje de éxito
+  } catch (error) {
+    console.error("Error updating post like status:", error);
+    return { message: "Error" }; // Devolvemos un objeto con un mensaje de error
+  }
 };

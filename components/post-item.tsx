@@ -1,8 +1,15 @@
+"use client";
+
 import { formatDate } from "@/lib";
 import { LikeButton } from "./like-icon";
 import { Post } from "@/types";
 
-export const PostItem = ({ post }: { post: Post }) => {
+interface Props {
+  post: Post;
+  action: (postId: string) => Promise<void>;
+}
+
+export const PostItem = ({ post, action }: Props) => {
   return (
     <article className="post">
       <div className="post-image">
@@ -20,7 +27,12 @@ export const PostItem = ({ post }: { post: Post }) => {
             </p>
           </div>
           <div>
-            <LikeButton />
+            <form
+              action={action.bind(null, post.id)}
+              className={post.isLiked ? "liked" : ""}
+            >
+              <LikeButton />
+            </form>
           </div>
         </header>
         <p>{post.content}</p>

@@ -1,33 +1,39 @@
-export interface Post {
+export type Post = {
   id: string;
   imageUrl: string;
   title: string;
   content: string;
   userId: number;
   userFirstName: string;
+  isLiked: boolean;
+  likes: number;
   createdAt: string;
-}
+};
 
-export interface ApiPostResponse {
+export type ApiPostResponse = {
   id: string;
   image: string;
   title: string;
   content: string;
   userId: number;
   userFirstName: string;
+  isLiked: boolean;
   createdAt: string;
-}
+};
 
-export interface FormDataPost {
+export type FormDataPost = {
   title: string;
   imageUrl: string;
   content: string;
   userId: number;
-}
+};
 
 export type CreateFormStateType = { errors: string[] };
 
-export type CreatePostActionType = (
-  prevState: CreateFormStateType,
-  formData: FormData
-) => Promise<CreateFormStateType>;
+export type FormFieldType = {
+  label: string;
+  id: string;
+  type?: string;
+  accept?: string;
+  rows?: number;
+};

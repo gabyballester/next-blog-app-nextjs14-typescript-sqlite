@@ -10,6 +10,7 @@ export const mapperApiPostResponseToPost = (
     content: apiPostResponse.content,
     userId: apiPostResponse.userId,
     userFirstName: apiPostResponse.userFirstName,
+    isLiked: apiPostResponse.isLiked,
     createdAt: apiPostResponse.createdAt,
   };
 };

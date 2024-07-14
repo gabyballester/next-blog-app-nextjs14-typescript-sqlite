@@ -1,16 +1,21 @@
+"use client";
+
 import { Post } from "@/types";
 import { PostItem } from "./post-item";
+import { useUpdatePost } from "./hooks";
 
 export const PostList = ({ posts }: { posts: Post[] }) => {
-  if (!posts || posts.length === 0) {
+  const { optimisticPosts, updatePost } = useUpdatePost({ posts });
+
+  if (!optimisticPosts || optimisticPosts.length === 0) {
     return <p>There are no posts yet. Maybe start sharing some?</p>;
   }
 
   return (
     <ul className="posts">
-      {posts.map((post: Post) => (
+      {optimisticPosts.map((post: Post) => (
         <li key={post.id}>
-          <PostItem post={post} />
+          <PostItem post={post} action={updatePost} />
         </li>
       ))}
     </ul>

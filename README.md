@@ -71,9 +71,15 @@ npm i sharp
 npm run build
 ```
 
+3. Start the production build
+
+```bash
+npm run start
+```
+
 ## Improvements
 
-- **zod** for form validations
+- **Zod** for form validations
 
 ## Contributions
 

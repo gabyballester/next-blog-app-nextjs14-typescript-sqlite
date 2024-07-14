@@ -1,5 +1,5 @@
-import { Posts } from "@/components";
-import { getPosts } from "@/database";
+import { PostList } from "@/components";
+import { getPosts } from "@/services";
 
 export default async function FeedPage() {
   const posts = await getPosts();
@@ -7,7 +7,7 @@ export default async function FeedPage() {
   return (
     <>
       <h1>All posts by all users</h1>
-      <Posts posts={posts} />
+      <PostList posts={posts} />
     </>
   );
 }

@@ -1,19 +1,19 @@
 import { formatDate } from "@/lib";
 import { LikeButton } from "./like-icon";
-import { PostExtended } from "@/types";
+import { Post } from "@/types";
 
-export const PostItem = ({ post }: { post: PostExtended }) => {
+export const PostItem = ({ post }: { post: Post }) => {
   return (
     <article className="post">
       <div className="post-image">
-        <img src={post.image} alt={post.title} />
+        <img src={post.imageUrl} alt={post.title} />
       </div>
       <div className="post-content">
         <header>
           <div>
             <h2>{post.title}</h2>
             <p>
-              Shared by {post.userFirstName} on{" "}
+              Shared by {post.userFirstName} on
               <time dateTime={post.createdAt}>
                 {formatDate(post.createdAt)}
               </time>

@@ -1,4 +1,5 @@
-import { Post } from "@/types";
+import { mapperApiPostResponseToPost } from "@/mappers";
+import { ApiPostResponse, FormDataPost, Post } from "@/types";
 import sql from "better-sqlite3";
 
 const db = new sql("posts.db");
@@ -65,15 +66,26 @@ export async function getPosts(maxNumber?: number): Promise<Post[]> {
     ${limitClause}`);
 
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  return maxNumber ? (stmt.all(maxNumber) as Post[]) : (stmt.all() as Post[]);
+  const apiPostResponses: ApiPostResponse[] = maxNumber
+    ? (stmt.all(maxNumber) as ApiPostResponse[])
+    : (stmt.all() as ApiPostResponse[]);
+
+  return apiPostResponses.map(mapperApiPostResponseToPost);
 }
 
-export async function storePost(post: Post): Promise<sql.RunResult> {
-  const stmt = db.prepare(`
+export async function storePost(post: FormDataPost): Promise<sql.RunResult> {
+  try {
+    const stmt = db.prepare(`
     INSERT INTO posts (image_url, title, content, user_id)
     VALUES (?, ?, ?, ?)`);
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-  return stmt.run(post.imageUrl, post.title, post.content, post.userId);
+
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    return stmt.run(post.imageUrl, post.title, post.content, post.userId);
+  } catch (error) {
+    console.error("Error storing post:", error);
+    throw error;
+  }
 }
 
 export async function updatePostLikeStatus(postId: string, userId: string) {

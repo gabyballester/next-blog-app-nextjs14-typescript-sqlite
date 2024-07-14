@@ -1,9 +1,8 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { storePost } from "@/database";
-import { CreateFormStateType, FormDataPost, Post } from "@/types";
-import { uploadImage } from "@/lib";
+import { storePost, uploadImage } from "@/services";
+import { CreateFormStateType, FormDataPost } from "@/types";
 
 export const createPostAction = async (
   _prevState: CreateFormStateType,
@@ -32,34 +31,40 @@ export const createPostAction = async (
 
   if (errors.length > 0) return { errors };
 
-  const formDataPost: FormDataPost = {
-    title,
-    image,
-    content,
-    userId: 1,
-  };
-
   let imageUrl;
 
-  imageUrl = await uploadImage(image);
-
-  if (!imageUrl) {
-    errors.push("Upload image failed!");
+  try {
+    imageUrl = await uploadImage({ image, folderName: "nextjs-post-images" });
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    } else if (
+      typeof error === "object" &&
+      error !== null &&
+      "message" in error
+    ) {
+      throw new Error(String(error.message));
+    } else {
+      throw new Error(String(error));
+    }
   }
 
   if (errors.length > 0) return { errors };
 
-  const newPost: Post = {
+  const newPost: FormDataPost = {
+    title,
+    content,
+    userId: 1,
     imageUrl,
-    title: formDataPost.title,
-    content: formDataPost.content,
-    userId: Number(formDataPost.userId),
   };
 
-  const result = await storePost(newPost);
+  let storedPost;
 
-  if (!result || result.changes < 1 || result.lastInsertRowid < 1) {
-    errors.push("Create post failed!");
+  try {
+    storedPost = await storePost(newPost);
+  } catch (error: Error | unknown) {
+    if (error instanceof Error) throw new Error(JSON.stringify(error));
+    throw new Error("Unhandled Error storing post");
   }
 
   if (errors.length > 0) return { errors };

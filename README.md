@@ -1,10 +1,10 @@
-# News App
+# 📱 Blog App
 
-## Description
+## 📝 Description
 
 Blog App is a Tech Assessment Project to demonstrate knowledge of Next.js. It shows up posts and allows you to mutate data from a sqlite database.
 
-## Getting Started
+## 🚀 Getting Started
 
 1. Install the necessary dependencies: Before running the development server, make sure to install all project dependencies. You can do this with one of the following commands:
 
@@ -18,7 +18,7 @@ npm install
 npm run dev
 ```
 
-## Database
+## 🗄️ Database
 
 This application uses SQLite as its database. Ensure that the SQLite database is properly set up before running the application.
 
@@ -28,11 +28,11 @@ It includes a built-in db through the use of this file `services\post.services.t
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Code Quality and Best Practices
+## 🛠️ Code Quality and Best Practices
 
 The platform ensures high code quality and follows best practices.
 
-## Base libraries used
+## 📚 Base libraries used
 
 - **Next.js:** As the chosen framework to build with.
 - **React:** As the UI library in the background.
@@ -47,17 +47,17 @@ The platform ensures high code quality and follows best practices.
   CLOUDINARY_API_SECRET=
 ```
 
-## UX/UI
+## 🎨 UX/UI
 
 - **CSS Modules:** The application utilizes global CSS styles and CSS Modules for precise styling on each component that requires it.
 
-## Special Features
+## 🌟 Special Features
 
 - **Server Actions:** The application uses Server Actions to efficiently and securely handle server actions.
 - **Optimistic updates:** is a special feature from the React library and it allows applications to display changes in the user interface immediately, even before they are confirmed by the server. This enhances the user experience by making the application appear faster and more responsive.
 - **Revalidate front client routes:** This feature ensures that the data for client-side routes is refreshed and up-to-date by revalidating it at specified intervals or upon certain triggers. This helps maintain the accuracy and relevance of the displayed information without requiring a full page reload.
 
-## Prepare for production
+## 📦 Prepare for production
 
 1. Install image optimization package sharp.
 
@@ -77,11 +77,20 @@ npm run build
 npm run start
 ```
 
-## Improvements
+4. Demo deployed in Vercel
+
+```bash
+https://next-blog-app-nextjs14-typescript-sqlite.vercel.app/
+```
+
+📷 Demo image:
+![demo_next-blog](./assets/images/demo.jpg)
+
+## 🚀 Improvements
 
 - **Zod** for form validations
 
-## Contributions
+## 🤝 Contributions
 
 Contributions are welcome. If you would like to contribute, please follow these steps:
 

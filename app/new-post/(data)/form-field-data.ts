@@ -3,7 +3,7 @@ import { FormFieldType } from "@/types";
 export const formFieldsData: FormFieldType[] = [
   { label: "Title", id: "title", type: "text" },
   {
-    label: "Image URL",
+    label: "Image to upload",
     id: "image",
     type: "file",
     accept: "image/png, image/jpeg",

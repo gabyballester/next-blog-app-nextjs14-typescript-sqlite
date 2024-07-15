@@ -156,6 +156,7 @@ main {
 
 .post {
   display: flex;
+  align-items: center;
   gap: 1rem;
   padding: 1rem;
   border-radius: 6px;
@@ -170,11 +171,11 @@ main {
   position: relative;
 }
 
-/* .post img {
-  width: 8rem;
-  height: 6rem;
-  object-fit: contain;
-} */
+.post img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 .post-content {
   flex: 1;

@@ -3,18 +3,32 @@
 import { formatDate } from "@/lib";
 import { LikeButton } from "./like-icon";
 import { Post } from "@/types";
-import Image from "next/image";
+import Image, { type ImageLoaderProps } from "next/image";
 
 interface Props {
   post: Post;
   action: (postId: string) => Promise<void>;
 }
 
+function imageLoader({ src, quality }: ImageLoaderProps) {
+  const urlStart = src.split("upload/")[0];
+  const urlEnd = src.split("upload/")[1];
+  const transformations = `w_200,h_150,q_${quality}`;
+  return `${urlStart}upload/${transformations}/${urlEnd}`;
+}
+
 export const PostItem = ({ post, action }: Props) => {
   return (
     <article className="post">
       <div className="post-image">
-        <Image src={post.imageUrl} alt={post.title} fill />
+        <Image
+          loader={imageLoader}
+          src={post.imageUrl}
+          width={200}
+          height={120}
+          alt={post.title}
+          quality={50}
+        />
       </div>
       <div className="post-content">
         <header>

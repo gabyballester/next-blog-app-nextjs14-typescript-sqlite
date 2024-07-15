@@ -40,6 +40,7 @@ The platform ensures high code quality and follows best practices.
 - **Cloudinary:** to store image files.
   You´ll find a .env.local-sample file where you have to store tha info from your Cloudinary dashboard
 - **Sharp:**For production image optimization with Next.js, you need to install the sharp package.
+- **SEO Metadata:** Add static and dynamic metadata, based on the content of the app which improves the SEO of the site.
 
 ```bash
   CLOUDINARY_CLOUD_NAME=
